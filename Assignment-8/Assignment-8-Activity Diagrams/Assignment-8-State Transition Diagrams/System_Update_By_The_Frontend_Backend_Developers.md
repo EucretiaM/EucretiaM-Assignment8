@@ -1,33 +1,18 @@
+# System Update by Frontend & Backend Developers – State Diagram
 
-### System Update State Diagram by frontend Developers and Backend developers
+This diagram outlines the update process followed by frontend and backend developers when maintaining or enhancing the Math Booster system.
+
 ```mermaid
-
----
-config:
-  layout: elk
----
-stateDiagram
-  direction TB
-  [*] --> Still
-  Still --> Moving
-  Moving --> Crash
-  Still --> s1
-  s1 --> s2
-  s2 --> [*]
-  Crash --> s3
-  s3 --> [*]
-  Still:System
-  Moving:Glitches
-  Crash:Bug Fixing
-  s1:System Healthy Ok
-  s2:Exit
-  s3:Exit
-  style Still fill:#FF6D00
-  style Moving fill:#FFD600,color:#FFFFFF
-  style Crash fill:#2962FF,color:#FFFFFF
-  style s1 fill:#00C853,color:#FFFFFF
-  style s2 fill:#FF6D00,color:#FFFFFF
-  style s3 fill:#AA00FF,color:#FFFFFF
-
-```
-### The state diagram mapsystem system update functional requirements.
+stateDiagram-v2
+  [*] --> PlanUpdate : Plan Update
+  PlanUpdate --> AssignTasks : Assign Tasks (Frontend/Backend)
+  AssignTasks --> DevWork : Implement Code Changes
+  DevWork --> CommitCode : Commit & Push to Repository
+  CommitCode --> CodeReview : Code Review & Testing
+  CodeReview --> ChangesRequired : Request Changes?
+  ChangesRequired --> DevWork : Yes – Make Revisions
+  ChangesRequired --> MergeCode : No – Approve Merge
+  MergeCode --> DeployToStaging : Deploy to Staging
+  DeployToStaging --> FinalTesting : Perform Final Testing
+  FinalTesting --> DeployToProduction : Approve for Production
+  DeployToProduction --> [*] : Update Complete
